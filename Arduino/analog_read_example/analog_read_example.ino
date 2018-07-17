@@ -17,7 +17,7 @@ const int led_pin = 13;
 
 void publishReading(){
  int adcReading = analogRead(pot_pin);
- float voltage = (adcReading/1023)*5.0; 
+ float voltage = (adcReading/1023.0)*5.0; 
   msg.adc_reading = adcReading;
   msg.voltage = voltage;
   adc_publisher.publish(&msg);
