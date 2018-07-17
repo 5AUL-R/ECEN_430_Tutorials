@@ -2,11 +2,11 @@
 For this Tutorial to work you need to clone this repo to `~/catkin_ws/src/`:
 
 ```
-$ cd ~/catin_ws/src/
-$ got clone https://github.com/skipper762/ECEN_430_Tutorials
+$ cd ~/catkin_ws/src/
+$ git clone https://github.com/skipper762/ECEN_430_Tutorials
 ```
 
-Now we need to compile the code in this repo
+Now we need to compile the code
 ```
 $ cd ~/catkin_ws/
 $ catkin_make
@@ -22,7 +22,7 @@ $ sudo apt-get install ros-kinetic-rosserial-arduino
 $ sudo apt-get install ros-kinetic-rosserial
 ```
 
-Initially we are using a simple blink sketch on the Arduino, this is found the `Arduino` folder of this directory. Before this sketch will compile we need to generate the ROS headers. Move to the sketch book, and make the header files:
+Initially we are using a simple blink sketch on the Arduino, this is found the `Arduino` folder of this repo. Before this sketch will compile we need to generate the ROS headers. Move to the sketch book, and make the header files:
 
 ```
 $ cd ~/sketchbook/libraries/
@@ -39,7 +39,7 @@ Remember you need to start the ROS Master, you may also need to change the seria
 ```
 $ rostopic pub toggle_led std_msgs/Empty --once
 ```
-You should see the LED blink every time you send a message
+You should see the LED blink every time you send a message.
 
 Make sure you fully understand how this is working before continuing to part two. 
 
