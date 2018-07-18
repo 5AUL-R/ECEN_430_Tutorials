@@ -1,18 +1,4 @@
-# ECEN_430_Tutorials
-For this Tutorial to work you need to clone this repo to `~/catkin_ws/src/`:
-
-```
-$ cd ~/catkin_ws/src/
-$ git clone https://github.com/skipper762/ECEN_430_Tutorials
-```
-
-Now we need to compile the code
-```
-$ cd ~/catkin_ws/
-$ catkin_make
-```
-this should return no errors.
-
+# Part 2
 
 ## Part 1 - Blink
 Today we are extending ROS nodes over serial to Arduinos. This is done with `rosserial`. To install this use:
