@@ -87,12 +87,69 @@ Have a play with the LiDAR and figure out it's maximum range and scan area. Once
 
 ## 1C - Mapping
 
+ROS includes a large number of mapping packages, one of the essayist to use is Hector Mapping as it only uses input from a LiDAR. To use Hector Mapping we have to tell ROS the spacial relation between the laser and the robot base, this is known as a TF or transform. As the laser will not be moving relative to the base of the robot we can use a static\_tf\_publisher.
+
+Rather than publishing the TF from a command line tool we will use a launch file. A launch file is an easy way of launching a number of different nodes from one command line tab. To create a launch file we need to first create a ROS package. Using command line navigate to the src directory of the catkin\_ws using the command:
+
+```
+    $ cd ~/catkin_ws/src
+```
+If this directory dose not exist, you will have to create it. Once here we can create the ROS package with the command:
+```
+    $ roscreate-pkg myFirstPackage std_msgs roscpp rospy
+```
+
+cd into the newly created myFirstPackage directory and create a new directory called launch, then cd into that:
+```
+    $ cd myFirstPackage
+    $ mkdir launch
+    $ cd launch
+```
+
+Your path should now be:`~/catkin_ws/src/myFirstPackage/launch/` . Copy the launch file  `hector_mapping.launch` included in this git hub repo into the current folder (bonus points for command line use). 
 
 
+In this launch files we launch the URG node for the LiDAR data, setup static transforms between the laser, odometry and base frames. As don't have a physical robot yet, the TF places all the frames on top of one-another. If you want to use this launch file for your robots you will need to update the measurements. Finally, the launch file will launch an instance of the hector mapping node. 
 
+Before running this launch file we need to install hector mapping, unlike the URG node there is no hector mapping build for ROS Melodic yet, so we can't use the `apt-get` command. Rather, we have to build hector mapping from its source. To do this we need to get the source from git-hub.  
 
+Change directorys to `~/catkin_ws/src/` and `git clone` the hector slam repo. 
+```
+git clone https://github.com/tu-darmstadt-ros-pkg/hector_slam
+```
 
+Now that we have the raw source code, we need to build it. ROS uses the CMAKE build system, something we'll get into next tutorial. To use this for now we need to change directories to the `~/catkin_ws/ directory and call:
+```
+$ catkin_make
+```
+You should now have a warm happy feeling as all the code you just pulled down compiles first time. ***HACKERMAN MEME HERE***  
+After you code compiles, you will need to tell the termianl where to find it, luckly ROS has an auto generated shell script that will do this for you. 
+```
+$ soruce ~/catkin_ws/devel/setup.bash
+```
+You will need to call this scirpt in every open terminal window after you compile your code with `catkin_make`.
+You should now beable to run the launch file, move back into its directory and use `roslaunch` to run it:
+
+```
+$ cd ~/catkin_ws/myFirstPackage/launch/
+$ roslaunch hector_mapping.launch
+```
+
+If it all worked, you should have mapping working, now in another terminal run rviz and visualize the mapping output. If everything is running correctly you should have your first ROS publisher-subsricer system. These can be easily visualized using the RQTgraph tool. In a new terminal tab run:
  
- 
+```
+    $ rqt_graph
+```
+
+RQT graph is a great way of creating images for reports with minimal effort (hint-hint). Have a play with `rostopic` to have a look at the other topics hector mapping is generating. There are several other usefull comand line tools for debugging ROS systems. 
+
+  
+* [roscd](http://wiki.ros.org/roscd)
+* [rosrun](http://wiki.ros.org/rosrun)
+* [rosmsg](http://wiki.ros.org/rosmsg
+* [rosnode](http://wiki.ros.org/rosnode)
+
+An exustive list can be found [here](http://wiki.ros.org/ROS/CommandLineTools)
+
 
 
