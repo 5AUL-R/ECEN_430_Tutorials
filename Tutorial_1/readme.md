@@ -39,4 +39,59 @@ More information on the [ROS master](http://wiki.ros.org/Master) and [ROS core](
 
 ## 1B - LiDAR
 
+> Note: The following chapters are written for ROS Melodic, in most cases other versions of ROS can be used by substituting the version name when installing packages. i.e` $ sudo apt-get install ros-kinetic-urg-node`.
+
+
+LiDAR or Light Detection and Ranging is a technique used for determining the range to objects. The LiDARs you have today are the URG-04LX-UG01 and cost around \$1500 NZD. If you where writing code for these LiDARs from scrath you would need to write a UART driver and pharser to recive and unpack the data. However, with ROS someone has done the grunt work for you.
+
+The primary and perfered way of installing ROS nodes onto your systems is to use the `apt-get` command. Use the command below install the URG node onto your systems. 
+```
+ $ sudo apt-get install ros-melodic-urg-node 
+ ```
+ 
+Now plug in your LiDAR to the USB port on your NUC, the spindle should spin up and the LED start flashing. Use the`$ dmesg | grep tty` command to identify what serial port the LiDAR has been assigned. By default it should be on `/dev/ttyACM0`. The image below shows what the dmesg output should look like. 
+
+IMAGE HERE
+
+Using terminal, start the ROS Master:
+```
+$ roscore
+```
+Open a new terminal tab using `CTRL + SHIFT + T`. Using this terminal tab start the urg_node with:
+```
+    $ rosrun urg_node urg_node _serial_port:=/dev/ttyACM0
+```
+Where the serial port is set to the serial port of the LiDAR. We can now verify that the LiDAR is sending data using the rostopic command line tool. Fist check that the the urg\_node is publishing data on the `/scan`. In a new terminal tab, use the command:
+
+```
+    $ rostopic list
+```
+
+If the `scan` topic shows up in the list, use rosoptic to check the publish frequency of the topic with:
+
+```
+    $ rostopic hz /scan
+```
+
+If the LiDAR is running correctly it should be publishing data at 10~Hz. We can now visualize the data using rviz, launch it in a new terminal tab with:
+```
+    $ rviz
+```
+
+Using the panel on the left of RVIZ add the LiDAR data as shown below. To get the laser to show up, you will need change the fixed frame of rviz from "map" to "laser". This tells RVIZ to display all the data in relation to the coordinate system defined by the laser, not the map.  
+
+IMAGE HERE
+
+Have a play with the LiDAR and figure out it's maximum range and scan area. Once you are done stop all the running programs. 
+
+
+
+
+
+
+
+
+ 
+ 
+
 
