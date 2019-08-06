@@ -51,7 +51,7 @@ The primary and perfered way of installing ROS nodes onto your systems is to use
  
 Now plug in your LiDAR to the USB port on your NUC, the spindle should spin up and the LED start flashing. Use the`$ dmesg | grep tty` command to identify what serial port the LiDAR has been assigned. By default it should be on `/dev/ttyACM0`. The image below shows what the dmesg output should look like. 
 
-IMAGE HERE
+![DMESG output](images/dmsgOutput.png)
 
 Using terminal, start the ROS Master:
 ```
@@ -80,11 +80,12 @@ If the LiDAR is running correctly it should be publishing data at 10~Hz. We can 
 
 Using the panel on the left of RVIZ add the LiDAR data as shown below. To get the laser to show up, you will need change the fixed frame of rviz from "map" to "laser". This tells RVIZ to display all the data in relation to the coordinate system defined by the laser, not the map.  
 
-IMAGE HERE
+![RVIZ output](images/rviz1.png)
 
 Have a play with the LiDAR and figure out it's maximum range and scan area. Once you are done stop all the running programs. 
 
 
+## 1C - Mapping
 
 
 
