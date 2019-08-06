@@ -127,13 +127,13 @@ You should now have a warm, happy feeling as all the code you just pulled down c
 
 After you code compiles, you will need to tell the terminal where to find it, luckily ROS has an auto-generated shell script that will do this for you. 
 ```
-$ soruce ~/catkin_ws/devel/setup.bash
+$ source ~/catkin_ws/devel/setup.bash
 ```
 You will need to call this script in every open terminal window after you compile your code with `catkin_make`.
 You should now beable to run the launch file, move back into its directory and use `roslaunch` to run it:
 
 ```
-$ cd ~/catkin_ws/myFirstPackage/launch/
+$ cd ~/catkin_ws/src/myFirstPackage/launch/
 $ roslaunch hector_mapping.launch
 ```
 
