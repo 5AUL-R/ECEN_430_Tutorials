@@ -153,3 +153,10 @@ RQT graph is an excellent way of creating images for reports with minimal effort
 
 An exhaustive list can be found [here](http://wiki.ros.org/ROS/CommandLineTools)
    
+## 1D - Other Sensor Systems
+You can now work on getting the remaineder of your sensors working, below is a list of ROS nodes you may want to use:
+
+* SICK LiDAR - [LMS1xx](http://wiki.ros.org/LMS1xx)
+* R200 Realsense Cameras - [librealsense](http://wiki.ros.org/librealsense) and [realsensecamera](http://wiki.ros.org/realsense_camera)
+* D435 Realsense - [realsense2](http://wiki.ros.org/realsense2_camera)
+* Razor IMU - [razor_imu_9dof](http://wiki.ros.org/razor_imu_9dof)
