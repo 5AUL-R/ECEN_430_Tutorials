@@ -65,7 +65,7 @@ int main(int argc, int** argv){
    * callbacks will be called from within this thread (the main one).  ros::spin()
    * will exit when Ctrl-C is pressed, or the node is shutdown by the master.
    */
-   while(ros::ok){
+   while(ros::ok()){
    	ros::spinOnce();
    }
   
