@@ -1,4 +1,5 @@
 
+#include "ros/ros.h"
 
 void callBack (const /*msg_type& msg*/){
 	
@@ -30,7 +31,7 @@ int main(int argc, int** argv){
    * on a given topic.  This invokes a call to the ROS
    * master node, which keeps a registry of who is publishing and who
    * is subscribing.  Messages are passed to a callback function, here
-   * called chatterCallback.  subscribe() returns a Subscriber object that you
+   * called callBack.  subscribe() returns a Subscriber object that you
    * must hold on to until you want to unsubscribe.  When all copies of the Subscriber
    * object go out of scope, this callback will automatically be unsubscribed from
    * this topic.
@@ -40,7 +41,7 @@ int main(int argc, int** argv){
    * is the number of messages that will be buffered up before beginning to throw
    * away the oldest ones.
    */
-  ros::Subscriber sub = n.subscribe("/subTopicName", 1000, callBack);
+  ros::Subscriber sub = nh.subscribe("/subTopicName", 1000, callBack);
     /**
    * The advertise() function is how you tell ROS that you want to
    * publish on a given topic name. This invokes a call to the ROS
@@ -58,14 +59,15 @@ int main(int argc, int** argv){
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher pub_example = n.advertise<std_msgs::String>("/pubTopicName", 1000);
+  ros::Publisher pub_example = nh.advertise<std_msgs::String>("/pubTopicName", 1000);
     /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all
    * callbacks will be called from within this thread (the main one).  ros::spin()
    * will exit when Ctrl-C is pressed, or the node is shutdown by the master.
    */
-
-   ros::spin();
+   while(ros::ok){
+   	ros::spinOnce();
+   }
   
 
 }
