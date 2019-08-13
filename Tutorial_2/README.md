@@ -80,7 +80,7 @@ scanInvPub = nh.advertise<sensor_msgs::LaserScan>("/scan_inverted",1000);
 ``` 
 In the `scanCallBack` function, create a new `sensor_msgs::LaserScan` message named `out_msg`. This will be the message that is published from the node. 
 
-Constuct the inverted LiDAR scan by  reversing the range and instisty arrays and directly copying the rest of the data into the new message. Reminder: the LaserScan message definition is [here](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html).
+Constuct the inverted LiDAR scan by  reversing the range and intensity  arrays and directly copying the rest of the data into the new message. Reminder: the LaserScan message definition is [here](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html).
 
 After you have populated the fields in the new `out_msg`, it can be published with:
 ```
@@ -89,7 +89,7 @@ scanInvPub.publish(out_msg);
 The completed `scanCallBack` should look like the image below:
 ![](images/code_example_2.png)
 
-Run your node in adation with the `urg_node` and check uisng RVIZ that the LiDAR is inverted. 
+Run your node in addition with the `urg_node` and check uisng RVIZ that the LiDAR is inverted. 
 
 ## 2.2 - ROS over network
 
