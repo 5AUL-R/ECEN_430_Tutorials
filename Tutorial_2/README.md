@@ -88,7 +88,29 @@ scanInvPub.publish(out_msg);
 The completed `scanCallBack` should look like the image below:
 ![](images/code_example_2.png)
 
-Run your node with the `urg_node` and check uisng RVIZ that the LiDAR is inverted. 
+Run your node in adation with the `urg_node` and check uisng RVIZ that the LiDAR is inverted. 
 
+## 2.2 - ROS over network
 
+ > For this section you will need to partner up and have two NUCs per group.
+ 
+As mentioned earlier ROS can work over a wireless network, there a few simple setup steps needed. When running a ROS system over a network be sure to consider bandwidth and latency, you should generally run all your processing on the “robot”. 
+
+You will need to know the IP addresses of the two NUCs you are using, get these by using the `ifconfig` command. The ROS master can only be running on one processor in a system, this should be the “main” processor. 
+
+On the system that is running the ROS master, run `sudo gedit .bashrc` to edit the terminal start up script.  Add the following lines swapping out the *masteripaddress* for the IP address of the master.
+```
+export $ROS_MASTER_URI = http:// *masteripaddress*:11311
+export $ROS_IP = *masteripaddress*
+echo ROS Master is: $ROS_MASTER_URI
+```
+On the system that is not running the ROS master add the following lines to the .bashrc script.
+```
+export $ROS_MASTER_URI = http:// *masteripaddress*:11311
+export $ROS_IP = *slaveipaddress *
+echo ROS Master is: $ROS_MASTER_URI
+```
+
+Now start `roscore` and the `urg_node` on the master system and `rviz` on the slave. You should be able to "see" the topics available on both systems.
+ 
 
