@@ -86,7 +86,7 @@ After you have populated the fields in the new `out_msg`, it can be published wi
 scanInvPub.publish(out_msg);
 ```
 The completed `scanCallBack` should look like the image below:
-![](images/code_example1.png)
+![](images/code_example_2.png)
 
 Run your node with the `urg_node` and check uisng RVIZ that the LiDAR is inverted. 
 
