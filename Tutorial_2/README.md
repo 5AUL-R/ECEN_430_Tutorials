@@ -69,3 +69,26 @@ The terminal that is running your program should now print every time a new /sca
 Now that we have our code reading successfully, we can print out some of the message contents. See the definition for the `sensor_msgs::LaserScan` message [here]( http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html). Change the `ROS_INFO` line in your code this: ` ROS_INFO("Angle Increment is %f", msg.angle_increment);`
 
 ## 2.1B – Publishing Data
+Now we have a working subscriber, we can build the inverted scan publisher.  At the global scope in your program instantiate a publisher variable:
+ ```
+ros::Publisher scanInvPub;
+```
+And in your main method assign it to a new publisher that publishes a `sensor_msgs::LaserScan` message on the `/scan_inverted` topic. 
+```
+scanInvPub = nh.advertise<sensor_msgs::LaserScan>("/scan_inverted",1000); 
+``` 
+In the `scanCallBack` function, create a new `sensor_msgs::LaserScan` message named `out_msg`. This will be the message that is published from the node. 
+
+Constuct the inverted LiDAR scan by  reversing the range and instisty arrays and directly copying the rest of the data into the new message. Reminder: the LaserScan message definition is [here](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html).
+
+After you have populated the fields in the new `out_msg`, it can be published with:
+```
+scanInvPub.publish(out_msg);
+```
+The completed `scanCallBack` should look like the image below:
+![](images/code_example1.png)
+
+Run your node with the `urg_node` and check uisng RVIZ that the LiDAR is inverted. 
+
+
+
