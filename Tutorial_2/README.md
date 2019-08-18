@@ -81,26 +81,35 @@ $ rosrun *packageName* *execName*
 
 The terminal that is running your program should now print every time a new `/scan` message is received.
 
-    
+
 
 ### 2.1A - Reading message data
-Now that we have our code reading successfully, we can print out some of the message contents. See the definition for the `sensor_msgs::LaserScan` message [here]( http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html). Change the `ROS_INFO` line in your code this: ` ROS_INFO("Angle Increment is %f", msg.angle_increment);`
+Now that we have our code printing successfully, we can print out some of the incoming message contents. See the definition for the `sensor_msgs::LaserScan` message [here]( http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html). To access the message contents use the `.` operators i.e `msg.field`. The ROS console print statements can also be use like `printf` statements i.e `ROS_INFO("This is an int: %d and a String %s",22,"bob")`.    
 
 
-After you have made these changes
+Change the `ROS_INFO` line in your code to print two of the fields in the incoming message.
+
+
+After you have made these changes you will need to recompile your code with `catkin_make` and source all the open terminal windows again.
+
+> You can make changes to the code and recompile the code while it is running (as the current executable has been copied of the HDD into RAM), you will just need to re run your program for the changes to take effect.    
 
 ## 2.1B – Publishing Data
-Now we have a working subscriber, we can build the inverted scan publisher.  At the global scope in your program instantiate a publisher variable:
+Now we have a working subscriber, we can build the inverted scan publisher.  At the global scope in your program declare a publisher variable:
  ```
 ros::Publisher scanInvPub;
 ```
 And in your main method assign it to a new publisher that publishes a `sensor_msgs::LaserScan` message on the `/scan_inverted` topic.
 ```
-scanInvPub = nh.advertise<sensor_msgs::LaserScan>("/scan_inverted",1000);
+scanInvPub = nh.advertise<*msgType>("topicName",1000);
 ```
 In the `scanCallBack` function, create a new `sensor_msgs::LaserScan` message named `out_msg`. This will be the message that is published from the node.
 
-Constuct the inverted LiDAR scan by  reversing the range and intensity  arrays and directly copying the rest of the data into the new message. Reminder: the LaserScan message definition is [here](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html).
+Construct the inverted LiDAR scan by reversing the range and intensity arrays and directly copying the rest of the data into the new message. Arrays in ROSCPP use the `std:vector` type. This means they have useful functions like `size()`.
+
+> Before you write to a `std::vector` that is in a message, you need to declare it's size with `array.resize(*arraySize*)`
+
+Reminder: the LaserScan message definition is [here](http://docs.ros.org/melodic/api/sensor_msgs/html/msg/LaserScan.html).
 
 After you have populated the fields in the new `out_msg`, it can be published with:
 ```
@@ -109,7 +118,9 @@ scanInvPub.publish(out_msg);
 The completed `scanCallBack` should look like the image below:
 ![](images/code_example_2.png)
 
-Run your node in addition with the `urg_node` and check uisng RVIZ that the LiDAR is inverted.
+Run your node in addition with the `urg_node` and check using RVIZ that the LiDAR is inverted. 
+
+> If you have problems running your code use the ROS console to print useful error messages, code progress statements.
 
 ## 2.2 - ROS over network
 
